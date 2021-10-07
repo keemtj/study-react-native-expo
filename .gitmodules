@@ -1,0 +1,3 @@
+[submodule "chapter03/chapter03/react-native-component"]
+	path = chapter03/chapter03/react-native-component
+	url = https://github.com/keemtj/study-react-native-expo
