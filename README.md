@@ -7,8 +7,8 @@
 
 ### 📚 목차
 
-#### [🐶 Chapter 01 리액트 네이티브란?](https://github.com/keemtj/study-react-native-expo/tree/master/chapter01)
+#### [🐶 Chapter 01. 리액트 네이티브란?](https://github.com/keemtj/study-react-native-expo/tree/master/chapter01)
 
-#### [🐱 Chapter02 리액트 네이티브 시작하기](https://github.com/keemtj/study-react-native-expo/tree/master/chapter02)
+#### [🐱 Chapter02. 리액트 네이티브 시작하기](https://github.com/keemtj/study-react-native-expo/tree/master/chapter02)
 
-#### [🐭 Chapter03 컴포넌트](https://github.com/keemtj/study-react-native-expo/tree/master/chapter03)
+#### [🐭 Chapter03. 컴포넌트](https://github.com/keemtj/study-react-native-expo/tree/master/chapter03)
