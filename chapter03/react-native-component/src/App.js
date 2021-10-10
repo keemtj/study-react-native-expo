@@ -1,23 +1,18 @@
 import React from "react";
 import {
+  StyleSheet,
   View,
   //Text,
   //Button
 } from "react-native";
-import Counter from "./components/Counter";
 // import MyButton from "./components/MyButton";
 // import MyButton2 from "./components/MyButton2";
+// import Counter from "./components/Counter";
+import EventButton from "./components/EventButton";
 
 const App = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <View style={styles.view}>
       {/* <Text style={{ fontSize: 20, marginBottom: 10 }}>Button component</Text>
       <Button title="BUTTON" onPress={() => alert("clicked button!")} />
       <Text style={{ fontSize: 20, marginBottom: 10 }}>
@@ -33,9 +28,19 @@ const App = () => {
       <MyButton title="MyButton1 title2" onPress={() => alert("children")}>
         Children Props
       </MyButton> */}
-      <Counter />
+      {/* <Counter /> */}
+      <EventButton />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default App;
