@@ -1,5 +1,8 @@
 ## 📗 처음 배우는 리액트 네이티브
 
+- 지은이: 김범준
+- 홈페이지: [https://github.com/Alchemist85K/my-first-react-native](https://github.com/Alchemist85K/my-first-react-native)
+
 ### 🛠 사용 기술
 
 ![ReacNative](https://img.shields.io/badge/React_Native-53C1DE?style=flat-square&logo=react&logoColor=white)
