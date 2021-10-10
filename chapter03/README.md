@@ -16,6 +16,9 @@
     - 🔖 props [🔗](#-props)
     - 🔖 state [🔗](#-state)
   - 📖 이벤트 [🔗](#-이벤트)
+    - 🔖 press 이벤트 [🔗](#-press-이벤트)
+    - 🔖 change 이벤트 [🔗](#-change-이벤트)
+  - 📖 Pressable 컴포넌트 [🔗](#-Pressable-컴포넌트)
 
 </details>
 
@@ -516,6 +519,145 @@ const Counter = () => {
 
 ### 📖 이벤트
 
-#### 🔖
+- 리액트 네이티브는 사용자의 행동에 따라 상호 작용하는 이벤트를 다양하게 제공한다.
 
-##### 📎
+#### 🔖 press 이벤트
+
+- 웹 프로그래밍에서 가장 많이 사용하는 이벤트 중 하나는 onClick이벤트이다.
+- 리액트 네이티브에서 onClick 이벤트와 가장 비슷한 이벤트는 press 이벤트이다.
+
+> **TouchableOpacity에서 사용할 수 있는 press 이벤트 4가지**
+>
+> 1. **onPressIn:** 터치가 시작될 때 항상 호출
+> 2. **onPressOut:** 터치가 해제될 때 항상 호출
+> 3. **onPress:** 터치가 해제될 때 onPressOut 이후 호출
+> 4. **onLongPress:** 터치가 일정 시간 이상 지속되면 호출
+>
+> 문서: https://reactnative.dev/docs/pressable
+
+```javascript
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const EventButton = () => {
+  const _onPressIn = () => console.log("PressIn");
+  const _onPressOut = () => console.log("PressOut");
+  const _onPress = () => console.log("Press");
+  const _onLongPress = () => console.log("LongPress");
+
+  return (
+    <TouchableOpacity
+      style={styles.touchableOpacity}
+      onPressIn={_onPressIn}
+      onPressOut={_onPressOut}
+      onPress={_onPress}
+      onLongPress={_onLongPress}
+    >
+      <Text style={styles.text}>Press</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({...});
+
+export default EventButton;
+```
+
+> **주의 사항**  
+> `onPressIn`과 `onPressOut`은 항상 호출되지만, `onPress`와 `onLongPress`는 사용자가 클릭하는 시간에 따라 둘 중 하나만 호출된다.
+
+- `onLongPress`가 호출되는 시간을 조절하고 싶다면 `delayLongPress`의 값을 조절해서 원하는 시간으로 설정할 수 있다.
+
+```javascript
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const EventButton = () => {
+  ...
+
+  return (
+    <TouchableOpacity
+      ...
+      delayLongPress={3000}
+    >
+      <Text style={styles.text}>Press</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({...});
+
+export default EventButton;
+```
+
+#### 🔖 change 이벤트
+
+- change 이벤트는 값을 입력하는 `TextInput` 컴포넌트에서 많이 사용된다.
+
+```javascript
+import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
+
+const EventInput = () => {
+  const [text, setText] = useState("");
+  const _onChange = (e) => setText(e.nativeEvent.text);
+
+  return (
+    <View>
+      <Text style={styles.text}>text: {text}</Text>
+      <TextInput
+        style={styles.input}
+        value={text}
+        placeholder="Enter text"
+        onChange={_onChange}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({...});
+
+export default EventInput;
+```
+
+- onChange 속성은 `TextInput` 컴포넌트에 입력된 텍스트가 변경될 때 호출된다.
+- 다음과 같은 형태로 인자를 전달한다.
+
+```shell
+# console.log(e.nativeEvent)
+Object {
+  "nativeEvent": {
+    "eventCount": ...,
+    "target": ...,
+    "text": ...,
+  }
+}
+```
+
+- onChangeText 속성은 변경된 `text`의 문자열만 인수로 전달하며 호출한다.
+
+```javascript
+import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
+
+const EventInput = () => {
+  const [text, setText] = useState("");
+  const _onChangeText = (text) => setText(text);
+
+  return (
+    <View>
+      <Text style={styles.text}>text: {text}</Text>
+      <TextInput
+        style={styles.input}
+        value={text}
+        placeholder="Enter text"
+        onChangeText={_onChangeText}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({...});
+
+export default EventInput;
+```

@@ -8,7 +8,8 @@ import {
 // import MyButton from "./components/MyButton";
 // import MyButton2 from "./components/MyButton2";
 // import Counter from "./components/Counter";
-import EventButton from "./components/EventButton";
+// import EventButton from "./components/EventButton";
+import EventInput from "./components/EventInput";
 
 const App = () => {
   return (
@@ -29,7 +30,8 @@ const App = () => {
         Children Props
       </MyButton> */}
       {/* <Counter /> */}
-      <EventButton />
+      {/* <EventButton /> */}
+      <EventInput />
     </View>
   );
 };
