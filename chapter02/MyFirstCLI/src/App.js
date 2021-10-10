@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My First React Native Expo</Text>
+      <Text style={styles.title}>My First React Native CLI</Text>
     </View>
   );
 };
