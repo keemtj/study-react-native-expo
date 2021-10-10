@@ -1,7 +1,12 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
-import MyButton from "./components/MyButton";
-import MyButton2 from "./components/MyButton2";
+import {
+  View,
+  //Text,
+  //Button
+} from "react-native";
+import Counter from "./components/Counter";
+// import MyButton from "./components/MyButton";
+// import MyButton2 from "./components/MyButton2";
 
 const App = () => {
   return (
@@ -13,7 +18,7 @@ const App = () => {
         justifyContent: "center",
       }}
     >
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>Button component</Text>
+      {/* <Text style={{ fontSize: 20, marginBottom: 10 }}>Button component</Text>
       <Button title="BUTTON" onPress={() => alert("clicked button!")} />
       <Text style={{ fontSize: 20, marginBottom: 10 }}>
         MyButton components
@@ -27,7 +32,8 @@ const App = () => {
       <MyButton title="MyButton1 title" onPress={() => alert("props")} />
       <MyButton title="MyButton1 title2" onPress={() => alert("children")}>
         Children Props
-      </MyButton>
+      </MyButton> */}
+      <Counter />
     </View>
   );
 };
