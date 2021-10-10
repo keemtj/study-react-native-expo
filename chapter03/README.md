@@ -14,6 +14,7 @@
     - 🔖 커스텀 컴포넌트 [🔗](#-커스텀-컴포넌트)
   - 📖 props와 state [🔗](#-props와-state)
     - 🔖 props [🔗](#-props)
+    - 🔖 state [🔗](#-state)
   - 📖 이벤트 [🔗](#-이벤트)
 
 </details>
@@ -438,4 +439,83 @@ export default MyButton;
 Warning: Failed prop type: The prop `name` is marked as required in `MyButton`, but its value is `undefined`.
 ```
 
+#### 🔖 props
+
+- props는 부모 컴포넌트에서 받은 값으로 변경할 수 없는 반면, state는 컴포넌트 내부에서 생성되고 값을 변경할 수 있으며 이를 이용해 컴포넌트 상태를 관리한다.
+- 상태(state)란 컴포넌트에서 변화할 수 있는 값을 나타내며, 상태가 변하면 컴포넌트는 리렌더링된다.
+
+##### 📎 useState 사용하기
+
+- useState Hook은 함수형 컴포넌트에서 상태를 관리할 수 있도록 한다.
+
+```javascript
+const [state, setState] = useState(initialState);
+```
+
+```javascript
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import MyButton from "./MyButton";
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <View style={styles.view}>
+      <Text style={styles.text}>{count}</Text>
+      <MyButton title="+1" onPress={() => setCount(count + 1)} />
+      <MyButton title="-1" onPress={() => setCount(count - 1)} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  view: {
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    margin: 10,
+  },
+});
+
+export default Counter;
+```
+
+##### 📎 여러 개의 useState
+
+- 컴포넌트에서 관리해야하는 상태가 여러 개일 수 있는데, useState를 여러번 사용할 수 있다.
+
+```javascript
+const Counter = () => {
+  const [count, setCount] = useState(0);
+  const [double, setDouble] = useState(0);
+  return (
+    <View style={styles.view}>
+      <Text style={styles.text}>count: {count}</Text>
+      <Text style={styles.text}>double: {double}</Text>
+      <MyButton
+        title="+"
+        onPress={() => {
+          setCount(count + 1);
+          setDouble(double + 2);
+        }}
+      />
+      <MyButton
+        title="-"
+        onPress={() => {
+          setCount(count - 1);
+          setDouble(double - 2);
+        }}
+      />
+    </View>
+  );
+};
+```
+
 ### 📖 이벤트
+
+#### 🔖
+
+##### 📎
