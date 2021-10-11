@@ -18,7 +18,7 @@
   - 📖 이벤트 [🔗](#-이벤트)
     - 🔖 press 이벤트 [🔗](#-press-이벤트)
     - 🔖 change 이벤트 [🔗](#-change-이벤트)
-  - 📖 Pressable 컴포넌트 [🔗](#-Pressable-컴포넌트)
+    - 🔖 Pressable 컴포넌트 [🔗](#-Pressable-컴포넌트)
 
 </details>
 
@@ -203,7 +203,7 @@ export default function App() {
 
 - JSX에서 인라인 스타일링의 경우 객체 형태로 입력해야 한다.
 - css property의 경우 `-`으로 연결된 property는 카멜 표기법으로 작성한다.
-  (`background-color` -> `backgroundColor`)
+  (`background-color` → `backgroundColor`)
 
 ```javascript
 export default function App() {
@@ -661,3 +661,64 @@ const styles = StyleSheet.create({...});
 
 export default EventInput;
 ```
+
+#### 🔖 Pressable 컴포넌트
+
+- `TouchableOpacity` 컴포넌트를 대체하는 `Pressable` 컴포넌트가 추가되었다.
+- 사용자의 터치에 상호 작용하는 컴포넌트이다.
+- press 이벤트도 동일하게 존재하고 동작 방식도 같다.
+- 다른 특징은 `HitRect`와 `PressRect`이 존재한다.
+
+> **NOTE**  
+> 참고: https://reactnative.dev/docs/pressable
+
+```javascript
+import React from "react";
+import { Pressable, Text, StyleSheet } from "react-native";
+
+const PressableButton = (props) => {
+  return (
+    <Pressable
+      style={styles.pressable}
+      onPressIn={() => console.log("press in")}
+      onPressOut={() => console.log("press out")}
+      onPress={() => console.log("press")}
+      onLongPress={() => console.log("long press")}
+      delayLongPress={3000}
+      pressRetentionOffset={{
+        bottom: 50,
+        left: 50,
+        right: 50,
+        top: 50,
+      }}
+      hitSlop={50}
+    >
+      <Text>{props.title}</Text>
+    </Pressable>
+  );
+};
+
+const styles = StyleSheet.create({
+  pressable: {
+    padding: 10,
+    backgroundColor: "#1abc9c",
+  },
+  text: {
+    padding: 10,
+    fontSize: 20,
+  },
+});
+
+export default PressableButton;
+```
+
+- `PressRect`을 벗어나면 버튼을 누른 상태에서 벗어났다고 판단한다.
+- `PressRect`의 범위는 `HitRect`의 범위 끝에서 시작되므로 `hitSlop`의 값에 따라 `PressRect`의 범위가 달라진다는 것
+
+> **NOTE**  
+> `Pressable` 컴포넌트에서 press 이벤트 동작 순서
+>
+> 1. **단순 클릭:** PressIn → PressOut → Press
+> 2. **길게 클릭:** PressIn → LongPress → PressOut
+> 3. **클릭 중 밖으로 이동:** PressIn → Out of PressRect → PressOut
+> 4. **길게 클릭 중 밖으로 이동** PressIn → LongPress → Out of PressRect → PressOut
