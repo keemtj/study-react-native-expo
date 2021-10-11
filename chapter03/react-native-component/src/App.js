@@ -9,7 +9,8 @@ import {
 // import MyButton2 from "./components/MyButton2";
 // import Counter from "./components/Counter";
 // import EventButton from "./components/EventButton";
-import EventInput from "./components/EventInput";
+// import EventInput from "./components/EventInput";
+import PressableButton from "./components/PressableButton";
 
 const App = () => {
   return (
@@ -31,7 +32,8 @@ const App = () => {
       </MyButton> */}
       {/* <Counter /> */}
       {/* <EventButton /> */}
-      <EventInput />
+      {/* <EventInput /> */}
+      <PressableButton title="Pressable" />
     </View>
   );
 };
