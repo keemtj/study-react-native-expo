@@ -1,14 +1,12 @@
 import React from "react";
 import { View } from "react-native";
-import { Contents, Footer, Header } from "./components/Layout";
 import { viewStyles } from "./styles";
+import ShadowBox from "./components/ShadowBox";
 
 const App = () => {
   return (
     <View style={viewStyles.container}>
-      <Header />
-      <Contents />
-      <Footer />
+      <ShadowBox />
     </View>
   );
 };
