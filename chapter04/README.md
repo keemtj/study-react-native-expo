@@ -8,7 +8,9 @@
     - 🔖 여러 개의 스타일 적용 [🔗](#-여러-개의-스타일-적용)
     - 🔖 외부 스타일 이용하기 [🔗](#-외부-스타일-이용하기)
   - 📖 리액트 네이티브 스타일 [🔗](#-리액트-네이티브-스타일)
-    - 🔖 flex [🔗](#-flex)
+    - 🔖 flex와 범위 [🔗](#-flex와-범위)
+    - 🔖 정렬 [🔗](#-정렬)
+    - 🔖 그림자 [🔗](#-그림자)
   - 📖 스타일드 컴포넌트 [🔗](#-스타일드-컴포넌트)
 
 </details>
@@ -212,4 +214,144 @@ export default ImportStyle;
 
 ### 📖 리액트 네이티브 스타일
 
-#### 🔖 flex
+#### 🔖 flex와 범위
+
+- flex값을 이용해 차지할 수 있는 영역을 정할 수 있다.
+- 아래의 코드는 `Header`, `Footer` 컴포넌트는 `height: 80`을 유지하고 `Contents` 컴포넌트는 나머지 모든 영역을 차지하도록 한다.
+
+```javascript
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+
+export const Header = () => {
+  return (
+    <View style={[styles.container, styles.header]}>
+      <Text style={styles.text}>HEADER</Text>
+    </View>
+  );
+};
+
+export const Contents = () => {
+  return (
+    <View style={[styles.container, styles.contents]}>
+      <Text style={styles.text}>CONTENTS</Text>
+    </View>
+  );
+};
+
+export const Footer = () => {
+  return (
+    <View style={[styles.container, styles.footer]}>
+      <Text style={styles.text}>FOOTER</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 80,
+  },
+  header: {
+    backgroundColor: "#f1c40f",
+  },
+  contents: {
+    flex: 1,
+    backgroundColor: "#1abc9c",
+    height: 640,
+  },
+  footer: {
+    backgroundColor: "#3498db",
+  },
+  text: {
+    fontSize: 26,
+  },
+});
+```
+
+> **NOTE**  
+> iPhone X 모델 이후로 상단 노치(Notch) 떄문에 크기가 다르게 보일 수 있다. `SafeAreaView` 컴포넌트를 이용하여 문제를 해결할 수 있다.
+
+#### 🔖 정렬
+
+- 컴포넌트가 쌓이는 방향을 정할 수 있다.
+
+> **NOTE**  
+> CSS Flex: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+> **flexDirection에 설정할 수 있는 네 가지 값**
+>
+> - column: 세로 방향으로 정렬(기본값)
+> - column-reverse: 세로 방향 역순 정렬
+> - row: 가로 방향으로 정렬
+> - row-reverse: 가로 방향 역순 정렬
+
+- `justifyContent`는 `flexDirection`에서 결정한 방향과 동일한 방향으로 정렬하는 속성이다.
+
+> **flexDirection이 row일 때 justifyContent의 값에 따라 정렬되는 모습**
+>
+> - flex-start: 시작점에서부터 정렬(기본값)
+> - flex-end: 끝에서부터 정렬
+> - center: 중앙 정렬
+> - space-between: 컴포넌트 사이의 공간을 동일하게 만들어서 정렬
+> - space-around: 컴포넌트 각각의 주변 공간ㅇ르 동일하게 만들어서 정렬
+> - space-evenly: 컴포넌트 사이와 양 끝에 동일한 공간을 만들어서 정렬
+
+- `alignItems`는 `flexDirection`에서 결정한 방향과 수직인 방향으로 정렬하는 속성이다.
+
+> **alignItems에 설정할 수 있는 값**
+>
+> - flex-start: 시작점에서부터 정렬(기본값)
+> - flex-end: 끝에서부터 정렬
+> - center: 중앙 정렬
+> - stretch: alignItems의 방향으로 컴포넌트 확장
+> - baseline: 컴포넌트 내부의 텍스트(text) 베이스라인(baseline)을 기준으로 정렬
+
+#### 🔖 그림자
+
+- 그림자는 리액트 네이티브에서 플랫폼마다 다르게 적용되는 스타일이다.
+
+> **그림자 속성 4가지**
+>
+> - shadowColor: 그림자 색 설정
+> - shadowOffset: width와 height값을 지정하여 그림자 거리 설정
+> - shadowOpacity: 그림자의 불투명도 설정
+> - shadowRadius: 그림자의 흐림 반경 설정
+
+> **주의 사항**  
+> 이 속성들은 iOS에만 적용되는 속성들이다. Android에서 그림자를 표현하려면 elevation이라는 속성을 사용해야 한다. 리액트 네이티브에서 제공하는 `Platform` 모듈을 이용해 각 플랫폼마다 다른 코드가 적용되도록 코드를 작성할 수 있다.
+>
+> - Platform: https://reactnative.dev/docs/platform-specific-code
+
+```javascript
+import React from "react";
+import { StyleSheet, View, Platform } from "react-native";
+
+export default () => {
+  return <View style={styles.shadow}></View>;
+};
+
+const styles = StyleSheet.create({
+  shadow: {
+    backgroundColor: "#fff",
+    width: 200,
+    height: 200,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 10,
+          height: 10,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+  },
+});
+```
