@@ -12,6 +12,21 @@
     - 🔖 정렬 [🔗](#-정렬)
     - 🔖 그림자 [🔗](#-그림자)
   - 📖 스타일드 컴포넌트 [🔗](#-스타일드-컴포넌트)
+    - 🔖 스타일드 컴포넌트 사용법 [🔗](#-스타일드-컴포넌트-사용법)
+    - 🔖 스타일 적용하기 [🔗](#-스타일-적용하기)
+    - 🔖 props 사용하기 [🔗](#-props-사용하기)
+    - 🔖 attrs 사용하기 [🔗](#-attrs-사용하기)
+    - 🔖 ThemeProvider [🔗](#-ThemeProvider)
+
+#### 🔖 스타일드 컴포넌트 사용법
+
+#### 🔖 스타일 적용하기
+
+#### 🔖 props 사용하기
+
+#### 🔖 attrs 사용하기
+
+#### 🔖 ThemeProvider
 
 </details>
 
@@ -354,4 +369,268 @@ const styles = StyleSheet.create({
     }),
   },
 });
+```
+
+### 📖 스타일드 컴포넌트
+
+- 리액트 네이티브와 웹 프로그래밍과의 스타일 적용은 유사한 만큼 차이점도 있기 때문에 혼동하거나 실수가 발생할 수 있다.
+- 이러한 점은 스타일드 컴포넌트로 해소할 수 있고, 스타일드 컴포넌트에서 제공하는 기능을 활용하여 추가적인 이점도 얻을 수 있다.
+
+> 스타일드 컴포넌트: https://styled-components.com/
+
+- 스타일드 컴포넌트는 자바스크립트 파일 안에 스타일을 작성하는 CSS-in-JS 라이브러리이다.
+- 스타일이 적용된 컴포넌트라고 생각하면 이해하기 쉽다.
+
+```shell
+> npm install styled-components
+```
+
+#### 🔖 스타일드 컴포넌트 사용법
+
+- 예시 코드
+
+```javascript
+import styled, { css } from "styled-components/native";
+
+const MyTextComponent = styled.Text`
+  color: "#fff";
+`;
+
+const whiteText = css`
+  color: "#fff";
+  font-size: 14px;
+`;
+
+const MyBoldTextComponent = styled.Text`
+  ${whiteText}
+  font-weight: 600;
+`;
+
+const ErrorText = styled(MyBoldTextComponent)`
+  color: red;
+`;
+```
+
+#### 🔖 스타일 적용하기
+
+- 적용 코드
+
+```javascript
+import React from "react";
+import styled from "styled-components/native";
+
+const Button = (props) => {
+  return (
+    <ButtonContainer>
+      <Title>{props.title}</Title>
+    </ButtonContainer>
+  );
+};
+
+const ButtonContainer = styled.TouchableOpacity`
+  background-color: #9b59b6;
+  border-radius: 15px;
+  padding: 15px 40px;
+  margin: 10px 0px;
+  justify-content: center;
+`;
+
+const Title = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+`;
+
+export default Button;
+```
+
+#### 🔖 props 사용하기
+
+- 스타일드 컴포넌트에서는 스타일을 작성하는 백틱 안에서 props에 접근할 수 있다.
+
+```javascript
+import React from "react";
+import styled from "styled-components/native";
+import Button from "./components/Button";
+
+const App = () => {
+  return (
+    <Container>
+      <Button title="Styled" />
+      <Button title="Button" />
+    </Container>
+  );
+};
+
+const Container = styled.View`
+  ...
+`;
+
+export default App;
+```
+
+```javascript
+import React from "react";
+import styled from "styled-components/native";
+
+const Button = (props) => {
+  return (
+    <ButtonContainer title={props.title}>
+      <Title>{props.title}</Title>
+    </ButtonContainer>
+  );
+};
+
+const ButtonContainer = styled.TouchableOpacity`
+  background-color: ${(props) =>
+    props.title === "Styled" ? "#3498db" : "#9b59b6"};
+  border-radius: 15px;
+  padding: 15px 40px;
+  margin: 10px 0px;
+  justify-content: center;
+`;
+
+const Title = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+`;
+
+export default Button;
+```
+
+#### 🔖 attrs 사용하기
+
+- 스타일드 컴포넌트를 이용하면 스타일을 작성하는 곳에서 컴포넌트의 속성도 설정할 수 있다.
+- 속성을 설정할 때 전달된 props를 이용할 수도 있다.
+- attrs를 이용하면 스타일을 설정하는 곳에서 props의 값에 따라 컴포넌트의 속성을 다르게 적용할 수도 있고 항상 일정한 속성을 미리 정의해놓을 수 있다.
+
+```javascript
+import React from "react";
+import styled from "styled-components/native";
+import Input from "./components/Input";
+
+const App = () => {
+  return (
+    <Container>
+      <Input borderColor="#3498db" />
+      <Input borderColor="#9b59b6" />
+    </Container>
+  );
+};
+
+const Container = styled.View`
+  ...
+`;
+
+export default App;
+```
+
+```javascript
+import React from "react";
+import styled from "styled-components/native";
+
+const Input = (props) => {
+  return <StyledInput borderColor={props.borderColor} />;
+};
+
+const StyledInput = styled.TextInput.attrs((props) => {
+  return {
+    placeholder: "Enter a text...",
+    placeholderTExtColor: props.borderColor,
+  };
+})`
+  width: 200px;
+  height: 60px;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px;
+  border-color: ${(props) => props.borderColor};
+  font-size: 24px;
+`;
+
+export default Input;
+```
+
+#### 🔖 ThemeProvider
+
+- 스타일드 컴포넌트의 ThemeProvider는 Context API를 활용해 애플리케이션 전체에서 스타일드 컴포넌트를 이용할 때 미리 정의한 값들을 사용할 수 있도록 props로 전달합니다.
+
+```javascript
+export const lightTheme = {
+  background: "#ffffff",
+  text: "#ffffff",
+  placeholder: "gray",
+  purple: "#9b59b6",
+  blue: "#3498db",
+};
+
+export const darkTheme = {
+  background: "#34495e",
+  text: "#34495e",
+  placeholder: "gray",
+  purple: "#9b59b6",
+  blue: "#3498db",
+};
+```
+
+- 원하는 theme을 사용하고 싶은 컴포넌트의 최상의 부모를 `ThemeProvider`로 감싸준다.
+
+```javascript
+import React, { useState } from "react";
+import { Switch } from "react-native";
+import styled, { ThemeProvider } from "styled-components/native";
+import Button from "./components/Button";
+import Input from "./components/Input";
+import { lightTheme, darkTheme } from "./theme";
+
+const App = () => {
+  const [isDark, setIsDark] = useState(false);
+  const _toggleSwitch = () => setIsDark(!isDark);
+
+  return (
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <Container>
+        <Switch value={isDark} onValueChange={_toggleSwitch} />
+        ...
+      </Container>
+    </ThemeProvider>
+  );
+};
+
+const Container = styled.View`
+  ...
+`;
+
+export default App;
+```
+
+- 스타일드 컴포넌트에서 props를 통해 theme을 받아 원하는 스타일을 적용할 수 있다.
+
+```javascript
+import React from "react";
+import styled from "styled-components/native";
+import { theme } from "../theme";
+
+const Button = (props) => {
+  return (
+    <ButtonContainer title={props.title}>
+      <Title>{props.title}</Title>
+    </ButtonContainer>
+  );
+};
+
+const ButtonContainer = styled.TouchableOpacity`
+  background-color: ${(props) =>
+    props.title === "Styled" ? props.theme.blue : props.theme.purple};
+  ...
+`;
+
+const Title = styled.Text`
+  ...
+  color: ${(props) => props.theme.text};
+`;
+
+export default Button;
 ```
